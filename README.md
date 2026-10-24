@@ -124,7 +124,7 @@ source("07_weibull_validation.R")
 
 Generated CSV and PDF files are stored in `outputs/`.
 
-The scripts have been executed during development. A complete clean-session reproducibility test remains pending.
+All eight R scripts executed successfully. The ten expected output files were regenerated, and all eight CSV outputs were verified as equivalent to their backups. PDF files were generated successfully, but visual equivalence was not independently verified.
 
 ## Limitations
 
