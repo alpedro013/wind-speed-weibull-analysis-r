@@ -3,6 +3,44 @@ library(readxl)
 datos <- read_excel("datos_foro_evaluable.xlsx",
                     sheet = "Municipios")
 
+# Input structure validation
+required_columns <- c(
+  "Municipio",
+  "fecha",
+  "vel_viento (m/s)"
+)
+
+missing_columns <- setdiff(
+  required_columns,
+  names(datos)
+)
+
+if (length(missing_columns) > 0) {
+  stop(
+    "Missing required columns: ",
+    paste(missing_columns, collapse = ",")
+  )
+}
+
+message("PASS: Required columns are present.")
+
+# Input data type validation
+type_checks <- c(
+  municipio = is.character(datos$Municipio),
+  fecha = inherits(datos$fecha, "Date") ||
+    inherits(datos$fecha, "POSIXct"),
+  wind_speed = is.numeric(datos[["vel_viento (m/s)"]])
+)
+
+if (!all(type_checks)) {
+  stop(
+    "Invalid data types detected: ",
+    paste(names(type_checks)[!type_checks], collapse = ", ")
+  )
+}
+
+message("PASS: Required data types are valid.")
+
 # Dimensiones y estructura
 dim(datos)
 names(datos)
