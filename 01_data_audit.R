@@ -41,6 +41,25 @@ if (!all(type_checks)) {
 
 message("PASS: Required data types are valid.")
 
+# DA-03: Wind speed data validation
+
+wind_speed <- datos[["vel_viento (m/s)"]]
+
+invalid_speed <- is.na(wind_speed) |
+  !is.finite(wind_speed) |
+  wind_speed < 0
+
+invalid_count <- sum(invalid_speed)
+
+if (invalid_count > 0) {
+  stop(
+    "Invalid wind speed observations detected: ",
+    invalid_count
+  )
+}
+
+message("PASS: Wind speed values are valid.")
+
 # Dimensiones y estructura
 dim(datos)
 names(datos)
