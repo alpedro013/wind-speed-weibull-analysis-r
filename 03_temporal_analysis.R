@@ -113,15 +113,23 @@ municipios <- unique(mensual_valido$municipio)
 par(mfrow = c(3, 4), mar = c(3, 3, 3, 1))
 
 for (ciudad in municipios) {
-  d <- subset(mensual_valido, municipio == ciudad)
+  
+  # Include all available months to preserve temporal gaps
+  d <- subset(mensual, municipio == ciudad)
   
   fecha_mes <- as.Date(
     sprintf("%04d-%02d-01", d$anio, d$mes),
     format = "%Y-%m-%d"
   )
+  
+  # Exclude low-coverage months from the plotted values
+  velocidad_grafico <- d$velocidad_media
+  
+  velocidad_grafico[d$cobertura_pct < 90] <- NA_real_
+  
   plot(
     fecha_mes,
-    d$velocidad_media,
+    velocidad_grafico,
     type = "l",
     main = ciudad,
     xlab = "Fecha",
@@ -132,8 +140,3 @@ for (ciudad in municipios) {
 
 dev.off()
 
-shell.exec(normalizePath("outputs/monthly_wind_trends.pdf"))
-
-getwd()
-
-file.exists("outputs/monthly_wind_trends.pdf")
