@@ -49,7 +49,8 @@ Publication of derived outputs is also subject to review of the dataset's usage 
 
 ### Weibull distribution
 
-The Weibull shape and scale parameters are estimated using:
+The Weibull shape parameter is estimated using an empirical coefficient-of-variation approximation rather than maximum likelihood estimation (MLE). 
+The scale parameter is then calculated from the observed mean wind speed and the estimated shape parameter:
 
 \[
 k=\left(\frac{\sigma}{\bar v}\right)^{-1.086}
