@@ -77,7 +77,7 @@ is.numeric(datos[["T (°C)"]])
 is.numeric(datos[["pres (hPa)"]])
 
 # Comprobar datos faltantes
-sum(is.na(datos[["T (°C"]]))
+sum(is.na(datos[["T (°C)"]]))
 sum(is.na(datos[["pres (hPa)"]]))
 
 presion_municipios <- aggregate(
